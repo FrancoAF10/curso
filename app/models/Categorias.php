@@ -31,9 +31,15 @@ class Categoria{
     );
     return $stmt->rowCount();
   }
-  public function update($params = []): int{
-    return 0;
-  }
+  public function update($params = []): int {
+    $sql = "UPDATE CATEGORIA SET categoria = ? WHERE idCategoria = ?";
+    $stmt = $this->conexion->prepare($sql);
+    $stmt->execute([
+        $params["categoria"], 
+        $params["idCategoria"] 
+    ]);
+    return $stmt->rowCount();  
+}
   public function delete($params = []): int{
     $sql= "DELETE FROM CATEGORIA WHERE idCategoria=?";
     $stmt = $this->conexion->prepare($sql);

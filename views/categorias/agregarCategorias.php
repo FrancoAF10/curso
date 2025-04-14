@@ -45,6 +45,7 @@
       .then(data => {
         if(data.filas>0){
           formulario.reset();
+          window.location.href = "../../views/categorias/listarCategorias.php";
           alert("Guardado correctamente");
         }
       })

@@ -30,8 +30,19 @@ if(isset($_SERVER['REQUEST_METHOD'])){
       break;
 
       case "PUT":
+        $input = file_get_contents("php://input");
+        $dataJSON = json_decode($input, true);
 
-      break;
+        $registro = [
+            "idCategoria" => $dataJSON["idCategoria"],
+            "categoria"   => $dataJSON["categoria"]
+        ];
+
+        $filasAfectadas = $categoria->update($registro);
+
+        header("Content-Type: application/json; charset=utf-8");
+        echo json_encode(["filas" => $filasAfectadas]); 
+        break;
       
       case "DELETE":
           header("Content-Type: application/json; charset=utf-8");

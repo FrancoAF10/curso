@@ -41,9 +41,23 @@ class Cursos{
     );
     return $stmt->rowCount();
   }
-  public function update($params = []): int{
-    return 0;
+  public function update($params = []): int {
+    $sql = "UPDATE CURSOS 
+            SET titulo = ?, duracionHoras = ?, nivel = ?, precio = ?, fechaInicio = ?, idCategoria = ?
+            WHERE idCursos = ?";
+    $stmt = $this->conexion->prepare($sql);
+    $stmt->execute([
+      $params["titulo"],
+      $params["duracionHoras"],
+      $params["nivel"],
+      $params["precio"],
+      $params["fechaInicio"],
+      $params["idCategoria"],
+      $params["idCursos"]
+    ]);
+    return $stmt->rowCount();
   }
+  
   public function delete($params = []): int{
     $sql= "DELETE FROM CURSOS WHERE idCursos=?";
     $stmt = $this->conexion->prepare($sql);

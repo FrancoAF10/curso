@@ -29,26 +29,65 @@
     </form>
 </div>
 <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  function obtenerRegistroCategoria() {
+      const URL = new URLSearchParams(window.location.search);
+      const idcategoria = URL.get('idCategoria');  
+      const parametros = new URLSearchParams();
+      parametros.append("task", "getById");
+      parametros.append("idCategoria", idcategoria);
 
-    document.addEventListener("DOMContentLoaded",()=>{
-    function obtenerRegistroCurso(){
+      fetch(`../../app/controllers/CategoriasController.php?${parametros}`, { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0) {
+            document.getElementById('categoria').value = data[0].categoria;
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
 
-      const URL= new URLSearchParams(window.location.search);
-      const idcategoria=URL.get('idCategoria');
+  }
 
-      const parametros=new URLSearchParams();
-      parametros.append("task","getById");
-      parametros.append("idCategoria",idcategoria)
-      
-      fetch(`../../app/controllers/CategoriasController.php?${parametros}`,{method:'GET'})
-      .then(response=>{return response.json()})
-      .then(data=>{console.log(data)})
-      .catch(error=>{console.error(error)});
-        
+  obtenerRegistroCategoria();
+
+  const formulario = document.getElementById('formulario-registro-categoria');
+
+  formulario.addEventListener('submit', function(event) {
+    event.preventDefault();  
+
+    const idcategoria = new URLSearchParams(window.location.search).get('idCategoria');  
+    const categoria = document.getElementById('categoria').value; 
+
+    const datos = {
+      idCategoria: idcategoria,
+      categoria: categoria
+    };
+
+    fetch('../../app/controllers/CategoriasController.php', {
+      method: 'PUT', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datos) 
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.filas > 0) {
+        alert("Categoría actualizada correctamente.");
+        window.location.href = "../../views/categorias/listarCategorias.php";
+      } else {
+        alert("Error al actualizar la categoría.");
       }
-      obtenerRegistroCurso();
+    })
+    .catch(error => {
+      console.error(error);
     });
+  });
+});
 
-  </script>
+</script>
+
 </body>
 </html>

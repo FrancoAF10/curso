@@ -37,6 +37,27 @@ if(isset($_SERVER['REQUEST_METHOD'])){
         echo json_encode(["filas"=>$filasAfectadas]);
       break;
       
+      case "PUT":
+        header("Content-Type: application/json; charset=utf-8");
+      
+        $input = file_get_contents("php://input");
+        $dataJSON = json_decode($input, true);
+      
+        $actualizacion = [
+          "idCursos"       => $dataJSON["idCursos"],
+          "titulo"         => $dataJSON["titulo"],
+          "duracionHoras"  => $dataJSON["duracionHoras"],
+          "nivel"          => $dataJSON["nivel"],
+          "precio"         => $dataJSON["precio"],
+          "fechaInicio"    => $dataJSON["fechaInicio"],
+          "idCategoria"    => $dataJSON["idCategoria"]
+        ];
+      
+        $filasAfectadas = $cursos->update($actualizacion);
+        echo json_encode(["filas" => $filasAfectadas]);
+        break;
+      
+
       case "DELETE":
           header("Content-Type: application/json; charset=utf-8");
 
