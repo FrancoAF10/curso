@@ -44,9 +44,9 @@
             <div class="form-floating mb-2">
             <select name="Nivel" id="nivel" class="form-select" >
               <option value="">Seleccione</option>
-              <option value="1">Básico</option>
-              <option value="2">Intermedio</option>
-              <option value="3">Avanzado</option>
+              <option value="Básico">Básico</option>
+              <option value="Intermedio">Intermedio</option>
+              <option value="Avanzado">Avanzado</option>
 
             </select>
             <label for="Nivel">Nivel</label>

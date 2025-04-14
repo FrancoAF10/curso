@@ -12,7 +12,7 @@
 <body>
   
 
-<div class="container">
+<div class="container mt-5">
   <button type="button" class="btn btn-secondary" onclick="window.location.href='.././cursos/registrarCursos.php'">Agregar Curso</button>
   <div class="card mt-3">
     <div class="card-header">Lista de Cursos Registrados</div>
